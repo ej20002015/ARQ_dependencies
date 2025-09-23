@@ -1,0 +1,1 @@
+Libraries are intended to be installed into this directory

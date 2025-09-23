@@ -1,0 +1,1 @@
+Libraries are intended to be built in this directory
