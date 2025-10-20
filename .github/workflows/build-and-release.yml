@@ -25,19 +25,14 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
 
       - name: Build package
-        run: |
-          nix build .#grpc-${{ matrix.platform }}-${{ matrix.buildType }} -L
-          mkdir -p artifacts
-          cp -L result artifacts/
-          cd artifacts
-          tar -czvf grpc-${{ matrix.platform }}-${{ matrix.buildType }}.tar.gz $(readlink -f result | xargs basename)
+        run: nix build .#grpc-${{ matrix.platform }}-${{ matrix.buildType }} -L
         shell: bash
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: grpc-${{ matrix.platform }}-${{ matrix.buildType }}
-          path: artifacts/*.tar.gz
+          path: result/dist/*
 
   create-release:
     needs: [build]
@@ -57,7 +52,6 @@ jobs:
           tag_name: "build-${{ github.run_id }}"
           draft: false
           prerelease: true
-          files: |
-            assets/**/*.tar.gz
+          files: assets/**/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
