@@ -17,10 +17,10 @@ Use the [Determinate Nix installer](https://zero-to-nix.com/start/install/) (rec
 The flake exposes a `grpc` module with various build variants. You can build different variants using:
 
 ```bash
-nix build .#grpc.linux-debug
-nix build .#grpc.linux-release
-nix build .#grpc.windows-debug
-nix build .#grpc.windows-release
+nix build .#grpc-linux-debug
+nix build .#grpc-linux-release
+nix build .#grpc-windows-debug
+nix build .#grpc-windows-release
 ```
 
 The output will be in `./result/dist/` with the appropriate archive:

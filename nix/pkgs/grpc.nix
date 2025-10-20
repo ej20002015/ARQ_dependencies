@@ -60,8 +60,11 @@ stdenv.mkDerivation {
     cmake --install build --config ${buildType}
 
     # Create an archive of the installation for compatibility with existing scripts
+    # First create a stable copy of files to prevent "file changed as we read it" errors
     mkdir -p $out/dist
-    tar -czf $out/dist/grpc-${version}-${platform}-${buildType}.tar.gz -C $out .
+    mkdir -p $TMPDIR/grpc-archive
+    cp -R $out/* $TMPDIR/grpc-archive/
+    tar -czf $out/dist/grpc-${version}-${platform}-${buildType}.tar.gz -C $TMPDIR/grpc-archive .
   '';
 
   meta = with lib; {

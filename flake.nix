@@ -22,24 +22,10 @@
       in
       {
         packages = {
-          grpc = {
-            linux-release = grpc {
-              platform = "linux";
-              buildType = "Release";
-            };
-            linux-debug = grpc {
-              platform = "linux";
-              buildType = "Debug";
-            };
-            windows-release = grpc {
-              platform = "windows";
-              buildType = "Release";
-            };
-            windows-debug = grpc {
-              platform = "windows";
-              buildType = "Debug";
-            };
-          };
+          grpc-linux-release = grpc { platform = "linux"; buildType = "Release"; };
+          grpc-linux-debug = grpc { platform = "linux"; buildType = "Debug"; };
+          grpc-windows-release = grpc { platform = "windows"; buildType = "Release"; };
+          grpc-windows-debug = grpc { platform = "windows"; buildType = "Debug"; };
         };
         formatter = nixpkgs.legacyPackages.${system}.nixfmt-tree;
       }
