@@ -18,11 +18,25 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        grpc = pkgs.callPackage ./nix/pkgs/grpc.nix { };
       in
       {
         packages = {
-          grpc = pkgs.callPackage ./nix/pkgs/grpc.nix { } {
-            version = "1.56.0"; # Change as needed
+          grpc-linux-release = grpc {
+            platform = "linux";
+            buildType = "Release";
+          };
+          grpc-linux-debug = grpc {
+            platform = "linux";
+            buildType = "Debug";
+          };
+          grpc-windows-release = grpc {
+            platform = "windows";
+            buildType = "Release";
+          };
+          grpc-windows-debug = grpc {
+            platform = "windows";
+            buildType = "Debug";
           };
         };
         formatter = nixpkgs.legacyPackages.${system}.nixfmt-tree;
