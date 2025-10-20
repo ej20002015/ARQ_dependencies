@@ -1,8 +1,1 @@
-.build/*
-!.build/README.md
-.install/*
-!.install/README.md
-.package/*
-!.package/README.md
-
-gRPC/grpc
+result
