@@ -100,6 +100,7 @@ Copy-Item -Path "$srcDebugDir\libssl-3-x64.dll" -Destination "$installDir\debug\
 Copy-Item -Path "$srcDebugDir\zlibd1.dll" -Destination "$installDir\debug\bin\" -Force
 Copy-Item -Path "$srcDebugDir\zstd.dll" -Destination "$installDir\debug\bin\" -Force
 Copy-Item -Path "$srcDebugDir\librdkafkacpp.lib" -Destination "$installDir\debug\lib\" -Force
+Copy-Item -Path "$srcDebugDir\librdkafka.lib" -Destination "$installDir\debug\lib\" -Force
 
 # --- Copy Release Files ---
 Write-Host "--- Copying Release files... ---" -ForegroundColor Yellow
@@ -112,10 +113,12 @@ Copy-Item -Path "$srcReleaseDir\libssl-3-x64.dll" -Destination "$installDir\rele
 Copy-Item -Path "$srcReleaseDir\zlib1.dll" -Destination "$installDir\release\bin\" -Force
 Copy-Item -Path "$srcReleaseDir\zstd.dll" -Destination "$installDir\release\bin\" -Force
 Copy-Item -Path "$srcReleaseDir\librdkafkacpp.lib" -Destination "$installDir\release\lib\" -Force
+Copy-Item -Path "$srcReleaseDir\librdkafka.lib" -Destination "$installDir\release\lib\" -Force
 
 # --- Copy Include and CMake Files ---
 Write-Host "--- Copying include and cmake files... ---" -ForegroundColor Yellow
-Copy-Item -Path "librdkafka\src-cpp\rdkafkacpp.h" -Destination "$installDir\include\rdkafkacpp.h" -Force
+New-Item -ItemType Directory -Path "$installDir\include\librdkafka" | Out-Null
+Copy-Item -Path "librdkafka\src-cpp\rdkafkacpp.h" -Destination "$installDir\include\librdkafka\rdkafkacpp.h" -Force
 
 $cmakeModulePath = (Resolve-Path $cmakeModule).Path
 if (-Not (Test-Path $cmakeModulePath)) {
