@@ -1,8 +1,8 @@
 ## gRPC
 
-### Windows
+Build instructions can be found [here](https://github.com/grpc/grpc/blob/master/BUILDING.md) for both windows and linux.
 
-Build instructions can be found [here](https://github.com/grpc/grpc/blob/master/BUILDING.md)
+### Windows
 
 #### Prerequisites
 
@@ -20,3 +20,19 @@ Build instructions can be found [here](https://github.com/grpc/grpc/blob/master/
 Build by running:
 
 `./build-windows.ps1 -Version v1.76.0 -BuildRootDir ../.build -InstallRootDir ../.install -PackageRootDir ../.package`
+
+### Linux
+
+#### Prerequisites
+
+- Git
+- CMake
+- GCC
+- tar
+- Ninja (much faster to compile using ninja than VS build system)
+
+#### Building
+
+Build by running:
+
+`./build-linux.sh -v v1.76.0 -b ../.build -i ../.install -p ../.package`
