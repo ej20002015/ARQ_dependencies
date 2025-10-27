@@ -1,0 +1,57 @@
+name: Build and Release Dependencies
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [linux, windows]
+        buildType: [release, debug]
+        include:
+          - platform: linux
+            runs-on: ubuntu-latest
+          - platform: windows
+            runs-on: windows-latest
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v23
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Build package
+        run: nix build .#grpc-${{ matrix.platform }}-${{ matrix.buildType }} -L
+        shell: bash
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: grpc-${{ matrix.platform }}-${{ matrix.buildType }}
+          path: result/dist/*
+
+  create-release:
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: assets
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: "Build $(date +'%Y-%m-%d %H:%M:%S')"
+          tag_name: "build-${{ github.run_id }}"
+          draft: false
+          prerelease: true
+          files: assets/**/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
