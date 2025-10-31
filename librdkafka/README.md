@@ -1,5 +1,7 @@
 ## librdkafka
 
+****NOTE:**** YOU MUST ensure that the version of zlib and openssl that librdkafka builds against is the same version as we distribute as part of ARQ_dependencies
+
 ### Windows
 
 librdkafka windows build instructions can be found [here](https://github.com/confluentinc/librdkafka/tree/master/win32) and [here](https://github.com/confluentinc/librdkafka/blob/master/README.win32)

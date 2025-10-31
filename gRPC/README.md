@@ -1,8 +1,8 @@
 ## gRPC
 
-### Windows
-
 Build instructions can be found [here](https://github.com/grpc/grpc/blob/master/BUILDING.md)
+
+### Windows
 
 #### Prerequisites
 
