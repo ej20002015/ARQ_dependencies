@@ -22,11 +22,17 @@ if(NOT TARGET grpc_interface)
     add_library(grpc_interface INTERFACE)
 endif()
 
+if(WIN32)
+    set(EXE_EXTENSION ".exe")
+else()
+    set(EXE_EXTENSION "")
+endif()
+
 # --- 3. Create the IMPORTED target: gRPC::protoc ---
 if(NOT TARGET gRPC::protoc)
     add_executable(gRPC::protoc IMPORTED GLOBAL)
     set_target_properties(gRPC::protoc PROPERTIES
-        IMPORTED_LOCATION "${GRPC_BIN_DIR}/protoc.exe"
+        IMPORTED_LOCATION "${GRPC_BIN_DIR}/protoc${EXE_EXTENSION}"
     )
 endif()
 
@@ -34,7 +40,7 @@ endif()
 if(NOT TARGET gRPC::grpc_cpp_plugin)
     add_executable(gRPC::grpc_cpp_plugin IMPORTED GLOBAL)
     set_target_properties(gRPC::grpc_cpp_plugin PROPERTIES
-        IMPORTED_LOCATION "${GRPC_BIN_DIR}/grpc_cpp_plugin.exe"
+        IMPORTED_LOCATION "${GRPC_BIN_DIR}/grpc_cpp_plugin${EXE_EXTENSION}"
     )
 endif()
 
@@ -80,6 +86,12 @@ if(WIN32)
         iphlpapi.lib
         ws2_32.lib
         crypt32.lib
+    )
+else()
+    set(GRPC_SYSTEM_LIBS
+        dl
+        m
+        rt
     )
 endif()
 
