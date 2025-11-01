@@ -44,7 +44,7 @@ else() # Linux/Unix
         INTERFACE_INCLUDE_DIRECTORIES "${NATS_INCLUDE_DIR}"
 
         # --- Set library locations for each config ---
-        IMPORTED_LOCATION_DEBUG           "${NATS_DEBUG_LIB_DIR}/libnats_static.a" # Adjust name if needed
+        IMPORTED_LOCATION_DEBUG           "${NATS_DEBUG_LIB_DIR}/libnats_staticd.a"
         IMPORTED_LOCATION_RELEASE         "${NATS_RELEASE_LIB_DIR}/libnats_static.a"
         IMPORTED_LOCATION_RELWITHDEBINFO  "${NATS_RELEASE_LIB_DIR}/libnats_static.a"
         IMPORTED_LOCATION_MINSIZEREL      "${NATS_RELEASE_LIB_DIR}/libnats_static.a"
