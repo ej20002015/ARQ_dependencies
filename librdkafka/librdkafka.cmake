@@ -124,8 +124,29 @@ if(WIN32)
         )
     endfunction()
 else()
-    # On Linux/macOS, do nothing. RPATH handling is preferred.
+    # --- Linux: Set RPATH ---
     function(librdkafka_setup_runtime TARGET_NAME)
-        # Dummy function for cross-platform compatibility
+        message(STATUS "Setting up librdkafka runtime RPATH for ${TARGET_NAME}")
+
+        # Get the .so directory paths
+        set(RDKAFKA_RPATH_DEBUG   "${RDKAFKA_DEBUG_LIB_DIR}")
+        set(RDKAFKA_RPATH_RELEASE "${RDKAFKA_RELEASE_LIB_DIR}")
+
+        # Create a config-aware RPATH string
+        set(RDKAFKA_RPATH_STRING
+            "$<IF:$<CONFIG:Debug>,${RDKAFKA_RPATH_DEBUG},${RDKAFKA_RPATH_RELEASE}>"
+        )
+
+        # Add this path to the target's existing RPATH
+        get_target_property(EXISTING_RPATH ${TARGET_NAME} INSTALL_RPATH)
+        if(NOT EXISTING_RPATH)
+            set(EXISTING_RPATH "")
+        else()
+            set(EXISTING_RPATH "${EXISTING_RPATH};") # Add separator
+        endif()
+
+        set_target_properties(${TARGET_NAME} PROPERTIES
+            INSTALL_RPATH "${EXISTING_RPATH}${RDKAFKA_RPATH_STRING}"
+        )
     endfunction()
 endif()
