@@ -17,3 +17,11 @@ Build instructions can be found [here](https://github.com/nats-io/nats.c?tab=rea
 Build by running:
 
 `./build-windows.ps1 -Version v3.11.0 -BuildRootDir ../.build -InstallRootDir ../.install -PackageRootDir ../.package`
+
+### Linux
+
+#### Building
+
+Build, install and create tarball package by running:
+
+`./build-linux.sh -v v3.6.0 -b ../.build -i ../.install -p ../.package`

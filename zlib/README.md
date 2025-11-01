@@ -21,5 +21,6 @@
 
 #### Running
 
-Install and create tarball package by running:
+Build, install and create tarball package by running:
 
+`./build-linux.sh -v v3.6.0 -b ../.build -i ../.install -p ../.package`
